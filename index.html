@@ -4,70 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>قديم ستور - لوحة الموظف</title>
-
 <style>
-body{
-background:#0b1220;
-color:white;
-font-family:Tahoma;
-margin:0;
-padding:20px;
-}
-
-h1{
-color:#d4af37;
-}
-
-.cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:15px;
-margin-top:20px;
-}
-
-.card{
-background:#111827;
-padding:20px;
-border-radius:15px;
-border:1px solid #d4af37;
-}
-
-.number{
-font-size:30px;
-color:#d4af37;
-font-weight:bold;
-}
-
-button{
-background:#d4af37;
-color:black;
-border:none;
-padding:12px 20px;
-border-radius:10px;
-cursor:pointer;
-font-weight:bold;
-}
-
-.section{
-margin-top:25px;
-background:#111827;
-padding:20px;
-border-radius:15px;
-border:1px solid #333;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-}
-
-td,th{
-padding:10px;
-border-bottom:1px solid #333;
-text-align:center;
-}
+body{background:#0b1220;color:white;font-family:Tahoma;margin:0;padding:20px}
+h1{color:#d4af37}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;margin-top:20px}
+.card{background:#111827;padding:20px;border-radius:15px;border:1px solid #d4af37}
+.number{font-size:30px;color:#d4af37;font-weight:bold}
+button{background:#d4af37;color:black;border:none;padding:12px 20px;border-radius:10px;cursor:pointer;font-weight:bold}
+.section{margin-top:25px;background:#111827;padding:20px;border-radius:15px;border:1px solid #333}
+table{width:100%;border-collapse:collapse}
+td,th{padding:10px;border-bottom:1px solid #333;text-align:center}
+li{margin:8px 0}
 </style>
-
 </head>
 
 <body>
@@ -75,121 +23,80 @@ text-align:center;
 <h1>قديم ستور - لوحة الموظف</h1>
 
 <div class="cards">
-
-<div class="card">
-عدد الطلبات اليوم
-<div class="number" id="orders">250</div>
-</div>
-
-<div class="card">
-عدد المنتجات
-<div class="number">1245</div>
-</div>
-
-<div class="card">
-عدد العملاء
-<div class="number">3480</div>
-</div>
-
-<div class="card">
-الأرباح
-<div class="number" id="profit">25000</div>
-</div>
-
-<div class="card">
-المصاريف
-<div class="number">8300</div>
-</div>
-
-<div class="card">
-رصيد البنك
-<div class="number" id="bank">75000</div>
-</div>
-
+<div class="card">عدد الطلبات اليوم <div class="number" id="orders">250</div></div>
+<div class="card">عدد المنتجات <div class="number">1245</div></div>
+<div class="card">عدد العملاء <div class="number">3480</div></div>
+<div class="card">الأرباح <div class="number" id="profit">25000</div></div>
+<div class="card">المصاريف <div class="number">8300</div></div>
+<div class="card">رصيد البنك <div class="number" id="bank">75000</div></div>
 </div>
 
 <div class="section">
 <h2>البنك</h2>
-
-<button onclick="transferMoney()">
-نقل الأموال إلى البنك
-</button>
-
+<button onclick="transferMoney()">نقل الأموال إلى البنك</button>
 </div>
 
 <div class="section">
 <h2>صندوق البريد</h2>
-
 <ul id="mailbox">
 <li>سارة - هل تم اعتماد الطلب رقم 1250 ؟</li>
 <li>محمد - العميل يريد تعديل العنوان</li>
 </ul>
-
 </div>
 
 <div class="section">
 <h2>آخر الطلبات</h2>
-
 <table>
-
 <tr>
 <th>رقم الطلب</th>
 <th>العميل</th>
 <th>الحالة</th>
 </tr>
-
 <tr>
 <td>#1250</td>
 <td>أحمد خالد</td>
 <td>قيد المعالجة</td>
 </tr>
-
 <tr>
 <td>#1249</td>
 <td>سارة محمد</td>
 <td>تم الشحن</td>
 </tr>
-
 </table>
-
 </div>
 
 <script>
-
 function transferMoney(){
 let bank=document.getElementById("bank");
 bank.innerText=parseInt(bank.innerText)+5000;
-alert("تم تحويل 5000 إلى البنك");
+alert("تم تحويل 5000 دينار إلى البنك");
 }
 
 setInterval(function(){
-
 let orders=document.getElementById("orders");
 orders.innerText=parseInt(orders.innerText)+20;
 
 let profit=document.getElementById("profit");
 profit.innerText=parseInt(profit.innerText)+1000;
-
-},60000);
+},10000);
 
 setInterval(function(){
-
 let messages=[
 "يوسف - المنتج رقم 120 قرب ينفذ",
 "سارة - تم استلام دفعة جديدة",
 "محمد - يوجد استفسار من عميل",
-"علي - طلب جديد بحاجة مراجعة"
+"علي - طلب جديد بحاجة مراجعة",
+"هدى - هل تم تحويل الرواتب ؟",
+"أحمد - العميل يطلب خصم على الطلب",
+"خالد - في طلب متأخر لازم نراجعه",
+"نور - تم تجهيز 12 طلب للشحن"
 ];
 
 let random=messages[Math.floor(Math.random()*messages.length)];
-
 let li=document.createElement("li");
 li.innerText=random;
-
 document.getElementById("mailbox").prepend(li);
-
-},300000);
-
+},15000);
 </script>
 
 </body>
