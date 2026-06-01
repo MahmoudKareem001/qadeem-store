@@ -3,221 +3,216 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>قديم ستور</title>
+<title>قديم ستور - لوحة الموظف</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#070c14;color:#fff;font-family:Tahoma,Arial;direction:rtl}
+body{margin:0;background:#070c14;color:#fff;font-family:Tahoma,Arial}
 .app{display:flex;min-height:100vh}
 .side{width:260px;background:#0b111c;border-left:1px solid #2b2b2b;padding:25px;position:fixed;right:0;top:0;bottom:0}
 .logo{text-align:center;color:#f0b429;font-size:32px;font-weight:bold;margin-bottom:10px}
-.sub{text-align:center;color:#ddd;margin-bottom:30px}
-.nav div{padding:14px;margin:8px 0;border-radius:12px;color:#eee}
-.nav div.active,.nav div:hover{background:linear-gradient(90deg,#8a650e,#f0b429);color:#111}
+.sub{text-align:center;color:#ddd;margin-bottom:25px}
+.nav button{display:block;width:100%;padding:13px;margin:7px 0;border:0;border-radius:12px;background:#101826;color:white;text-align:right;cursor:pointer}
+.nav button.active,.nav button:hover{background:linear-gradient(90deg,#8a650e,#f0b429);color:#111;font-weight:bold}
 .main{margin-right:260px;padding:25px;width:100%}
-.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}
+.top{display:flex;justify-content:space-between;margin-bottom:20px}
 .time{color:#f0b429}
-.hero{background:linear-gradient(135deg,#111827,#0b111c);border:1px solid #333;border-radius:22px;padding:25px;margin-bottom:22px}
-.hero h1{margin:0;color:white}
-.hero p{color:#ccc}
+.hero{background:linear-gradient(135deg,#111827,#0b111c);border:1px solid #333;border-radius:22px;padding:25px;margin-bottom:20px}
+.hero h1{margin:0}
 .cards{display:grid;grid-template-columns:repeat(6,1fr);gap:15px}
-.card{background:#101826;border:1px solid #333;border-radius:18px;padding:20px;box-shadow:0 0 25px #0006}
-.card h3{font-size:14px;color:#ccc;margin:0 0 15px}
+.card{background:#101826;border:1px solid #333;border-radius:18px;padding:18px}
+.card h3{font-size:14px;color:#ccc;margin:0 0 12px}
 .num{font-size:28px;color:#f0b429;font-weight:bold}
 .green{color:#3ddc68}.red{color:#ff5252}.gold{color:#f0b429}
-.grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:18px;margin-top:20px}
-.box{background:#101826;border:1px solid #333;border-radius:18px;padding:18px;min-height:260px}
-.box h2{margin-top:0;font-size:20px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.box{background:#101826;border:1px solid #333;border-radius:18px;padding:18px;margin-bottom:18px}
 table{width:100%;border-collapse:collapse}
-th,td{padding:10px;border-bottom:1px solid #2a3344;text-align:center;font-size:14px}
+th,td{padding:11px;border-bottom:1px solid #2a3344;text-align:center}
 .badge{padding:5px 10px;border-radius:20px;font-size:12px}
-.pending{background:#5c4308;color:#ffd76a}
-.processing{background:#063b5c;color:#72cfff}
-.shipped{background:#3d245c;color:#d6a4ff}
-.delivered{background:#0e4d21;color:#77ff9b}
-.cancelled{background:#5c1515;color:#ff8c8c}
+.pending{background:#5c4308;color:#ffd76a}.processing{background:#063b5c;color:#72cfff}.shipped{background:#3d245c;color:#d6a4ff}.delivered{background:#0e4d21;color:#77ff9b}.cancelled{background:#5c1515;color:#ff8c8c}
 .mail li,.notes li{list-style:none;background:#151f2e;margin:10px 0;padding:12px;border-radius:12px;border-right:4px solid #f0b429}
-button{width:100%;padding:14px;border:0;border-radius:14px;background:linear-gradient(90deg,#8a650e,#f0b429);color:#111;font-weight:bold;cursor:pointer}
-.bank-row{display:flex;justify-content:space-between;background:#151f2e;margin:10px 0;padding:13px;border-radius:12px}
-.chart{height:170px;background:linear-gradient(180deg,#172033,#0b111c);border-radius:15px;position:relative;overflow:hidden}
-.line{position:absolute;bottom:25px;right:20px;left:20px;height:90px;background:linear-gradient(135deg,transparent 10%,#f0b42955 40%,#f0b42922 70%);border-bottom:3px solid #f0b429;border-radius:20px}
-.footer-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:18px}
-@media(max-width:1100px){.cards{grid-template-columns:repeat(2,1fr)}.grid,.footer-grid{grid-template-columns:1fr}.side{display:none}.main{margin-right:0}}
+.action{padding:13px;border:0;border-radius:14px;background:linear-gradient(90deg,#8a650e,#f0b429);color:#111;font-weight:bold;cursor:pointer}
+.section{display:none}
+.section.active{display:block}
+input,select{width:100%;padding:12px;border-radius:12px;border:1px solid #333;background:#0b111c;color:white;margin:7px 0}
+@media(max-width:1000px){.side{display:none}.main{margin-right:0}.cards,.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
 <div class="app">
-
 <aside class="side">
 <div class="logo">قديم ستور</div>
 <div class="sub">لوحة الموظف</div>
 <div class="nav">
-<div class="active">الرئيسية</div>
-<div>الموظفين</div>
-<div>المنتجات</div>
-<div>الطلبات</div>
-<div>العملاء</div>
-<div>المالية</div>
-<div>البنك</div>
-<div>صندوق البريد <span class="badge cancelled" id="mailCount">2</span></div>
-<div>الإشعارات</div>
-<div style="color:#ff5252">تسجيل خروج</div>
+<button class="active" onclick="showSection('dashboard',this)">الرئيسية</button>
+<button onclick="showSection('employees',this)">الموظفين</button>
+<button onclick="showSection('products',this)">المنتجات</button>
+<button onclick="showSection('ordersSec',this)">الطلبات</button>
+<button onclick="showSection('customers',this)">العملاء</button>
+<button onclick="showSection('finance',this)">المالية</button>
+<button onclick="showSection('bank',this)">البنك</button>
+<button onclick="showSection('mail',this)">صندوق البريد <span id="mailCount">2</span></button>
+<button onclick="showSection('notifications',this)">الإشعارات</button>
+<button onclick="logout()">تسجيل خروج</button>
 </div>
 </aside>
 
 <main class="main">
+<div class="top"><div>👤 أحمد الموظف</div><div class="time" id="clock"></div></div>
 
-<div class="top">
-<div>👤 أحمد الموظف</div>
-<div class="time" id="clock">00:00:00</div>
+<section id="dashboard" class="section active">
+<div class="hero"><h1>مرحباً بك في لوحة قديم ستور</h1><p>النظام يحدث الطلبات والأرباح والرسائل تلقائياً</p></div>
+<div class="cards">
+<div class="card"><h3>عدد الطلبات اليوم</h3><div class="num" id="orders">920</div><small class="green">كل 10 ثواني +20</small></div>
+<div class="card"><h3>عدد المنتجات</h3><div class="num">356</div></div>
+<div class="card"><h3>عدد العملاء</h3><div class="num" id="customersNum">1245</div></div>
+<div class="card"><h3>إجمالي المبيعات</h3><div class="num" id="sales">45230</div></div>
+<div class="card"><h3>المصاريف</h3><div class="num red" id="expenses">12450</div></div>
+<div class="card"><h3>الأرباح</h3><div class="num green" id="profit">32780</div></div>
 </div>
-
-<div class="hero">
-<h1>مرحباً بك يا أحمد 👋</h1>
-<p>إليك نظرة عامة على نشاط قديم ستور اليوم</p>
+<div class="grid">
+<div class="box"><h2>آخر الطلبات</h2><table id="ordersTable"><tr><th>رقم الطلب</th><th>العميل</th><th>المبلغ</th><th>الحالة</th></tr></table></div>
+<div class="box"><h2>صندوق البريد السريع</h2><ul class="mail" id="mailbox"><li>سارة - هل تم اعتماد الطلب رقم 1250؟</li><li>محمد - العميل يريد تعديل العنوان</li></ul><button class="action" onclick="replyMail()">الرد على آخر رسالة</button></div>
 </div>
-
-<section class="cards">
-<div class="card"><h3>عدد الطلبات اليوم</h3><div class="num" id="orders">920</div><small class="green">كل 10 ثواني +20 طلب</small></div>
-<div class="card"><h3>عدد المنتجات</h3><div class="num">356</div><small class="green">+5 منتجات</small></div>
-<div class="card"><h3>عدد العملاء</h3><div class="num" id="customers">1245</div><small class="green">+18 عميل</small></div>
-<div class="card"><h3>إجمالي المبيعات</h3><div class="num" id="sales">45230</div><small class="green">+8.5%</small></div>
-<div class="card"><h3>المصاريف</h3><div class="num red" id="expenses">12450</div><small class="red">رواتب وتوصيل</small></div>
-<div class="card"><h3>الأرباح</h3><div class="num green" id="profit">32780</div><small class="green">صافي الربح</small></div>
 </section>
 
-<section class="grid">
-
-<div class="box">
-<h2>نظرة عامة على المبيعات</h2>
-<div class="chart"><div class="line"></div></div>
-<p>أعلى مبيعات اليوم: <span class="gold" id="topSale">45230</span></p>
-</div>
-
-<div class="box">
-<h2>صندوق البريد</h2>
-<ul class="mail" id="mailbox">
-<li>سارة - هل تم اعتماد الطلب رقم 1250؟</li>
-<li>محمد - العميل يريد تعديل العنوان</li>
-</ul>
-<button onclick="replyMail()">الرد على آخر رسالة</button>
-</div>
-
-<div class="box">
-<h2>البنك</h2>
-<div class="bank-row"><span>رصيد الشركة</span><b id="companyMoney">75430</b></div>
-<div class="bank-row"><span>رصيد البنك</span><b class="green" id="bankMoney">120250</b></div>
-<button onclick="transferMoney()">نقل الأموال إلى البنك</button>
-<ul class="notes" id="bankLog">
-<li>تم تحويل 5000 إلى البنك</li>
-</ul>
-</div>
-
+<section id="employees" class="section">
+<div class="hero"><h1>الموظفين</h1><p>بيانات الموظفين الوهميين داخل النظام</p></div>
+<div class="box"><table><tr><th>الاسم</th><th>القسم</th><th>الراتب</th><th>الدوام</th><th>المهام</th><th>الحالة</th></tr>
+<tr><td>سارة</td><td>المبيعات</td><td>450</td><td>9 - 5</td><td>متابعة العملاء</td><td class="green">متصل</td></tr>
+<tr><td>محمد</td><td>المخزون</td><td>400</td><td>10 - 6</td><td>تحديث المنتجات</td><td class="green">متصل</td></tr>
+<tr><td>علي</td><td>الشحن</td><td>380</td><td>8 - 4</td><td>تجهيز الطلبات</td><td class="red">غير متصل</td></tr>
+</table></div>
 </section>
 
-<section class="footer-grid">
+<section id="products" class="section">
+<div class="hero"><h1>المنتجات</h1><p>إدارة المنتجات والكميات والحالة</p></div>
+<div class="box"><table><tr><th>اسم المنتج</th><th>السعر</th><th>الكمية</th><th>التصنيف</th><th>الحالة</th></tr>
+<tr><td>سماعات لاسلكية</td><td>25</td><td>5</td><td>إلكترونيات</td><td class="red">قرب النفاد</td></tr>
+<tr><td>شاحن سريع</td><td>12</td><td>40</td><td>إكسسوارات</td><td class="green">متوفر</td></tr>
+<tr><td>ساعة ذكية</td><td>35</td><td>18</td><td>إلكترونيات</td><td class="green">متوفر</td></tr>
+</table></div>
+</section>
 
-<div class="box">
-<h2>آخر الطلبات</h2>
-<table id="ordersTable">
-<tr><th>رقم الطلب</th><th>العميل</th><th>المبلغ</th><th>الحالة</th></tr>
-<tr><td>#1250</td><td>أحمد علي</td><td>350</td><td><span class="badge processing">قيد المعالجة</span></td></tr>
-<tr><td>#1249</td><td>سارة محمد</td><td>250</td><td><span class="badge delivered">تم التسليم</span></td></tr>
-</table>
+<section id="ordersSec" class="section">
+<div class="hero"><h1>الطلبات</h1><p>طلبات وهمية تتحدث تلقائياً</p></div>
+<div class="box"><table id="ordersPageTable"><tr><th>رقم الطلب</th><th>اسم العميل</th><th>المنتجات</th><th>المبلغ</th><th>حالة الطلب</th></tr></table></div>
+</section>
+
+<section id="customers" class="section">
+<div class="hero"><h1>العملاء</h1><p>بيانات العملاء وعدد الطلبات</p></div>
+<div class="box"><table><tr><th>اسم العميل</th><th>رقم الهاتف</th><th>العنوان</th><th>عدد الطلبات</th></tr>
+<tr><td>أحمد خالد</td><td>0790001111</td><td>عمان</td><td>12</td></tr>
+<tr><td>نور عبدالله</td><td>0782223333</td><td>الزرقاء</td><td>7</td></tr>
+<tr><td>سارة محمد</td><td>0774445555</td><td>إربد</td><td>15</td></tr>
+</table></div>
+</section>
+
+<section id="finance" class="section">
+<div class="hero"><h1>المالية</h1><p>الأرباح والمصاريف والسحوبات والإيداعات</p></div>
+<div class="cards">
+<div class="card"><h3>إيداع</h3><div class="num green">18000</div></div>
+<div class="card"><h3>سحب</h3><div class="num red">4200</div></div>
+<div class="card"><h3>مصاريف</h3><div class="num red">12450</div></div>
+<div class="card"><h3>أرباح</h3><div class="num green" id="profit2">32780</div></div>
+<div class="card"><h3>رواتب</h3><div class="num red">1230</div></div>
+<div class="card"><h3>رسوم توصيل</h3><div class="num red">890</div></div>
 </div>
+</section>
 
-<div class="box">
-<h2>الموظفين</h2>
-<table>
-<tr><th>الاسم</th><th>القسم</th><th>الراتب</th><th>الحالة</th></tr>
-<tr><td>سارة</td><td>المبيعات</td><td>450</td><td class="green">متصل</td></tr>
-<tr><td>محمد</td><td>المخزون</td><td>400</td><td class="green">متصل</td></tr>
-<tr><td>علي</td><td>الشحن</td><td>380</td><td class="red">غير متصل</td></tr>
-</table>
+<section id="bank" class="section">
+<div class="hero"><h1>البنك</h1><p>تحويل الأموال وسجل العمليات</p></div>
+<div class="grid">
+<div class="box"><h2>الأرصدة</h2><p>رصيد الشركة: <b id="companyMoney">75430</b></p><p>رصيد البنك: <b class="green" id="bankMoney">120250</b></p><button class="action" onclick="transferMoney()">نقل 5000 إلى البنك</button></div>
+<div class="box"><h2>سجل التحويلات</h2><ul class="notes" id="bankLog"><li>تم تحويل 5000 إلى البنك</li></ul></div>
 </div>
+</section>
 
-<div class="box">
-<h2>المنتجات المنخفضة</h2>
-<table>
-<tr><th>المنتج</th><th>الكمية</th><th>الحالة</th></tr>
-<tr><td>سماعات لاسلكية</td><td>5</td><td class="red">منخفض</td></tr>
-<tr><td>شاحن سريع</td><td>8</td><td class="red">منخفض</td></tr>
-<tr><td>كابل</td><td>12</td><td class="gold">قرب النفاد</td></tr>
-</table>
+<section id="mail" class="section">
+<div class="hero"><h1>صندوق البريد</h1><p>رسائل وأسئلة وهمية من الموظفين</p></div>
+<div class="grid">
+<div class="box"><h2>الرسائل</h2><ul class="mail" id="mailbox2"><li>سارة - هل تم اعتماد الطلب؟</li><li>محمد - يوجد استفسار من عميل</li></ul></div>
+<div class="box"><h2>الرد</h2><input id="replyText" placeholder="اكتب الرد هنا"><button class="action" onclick="sendReply()">إرسال الرد</button></div>
 </div>
+</section>
 
+<section id="notifications" class="section">
+<div class="hero"><h1>الإشعارات</h1><p>تنبيهات النظام المباشرة</p></div>
+<div class="box"><ul class="notes" id="notifyList">
+<li>طلب جديد دخل النظام</li>
+<li>منتج قرب يخلص</li>
+<li>دفعة جديدة وصلت</li>
+<li>طلب تأخر عن موعده</li>
+</ul></div>
 </section>
 
 </main>
 </div>
 
 <script>
-let orderNum=1251;
-let mails=2;
-
-function updateClock(){
-let d=new Date();
-document.getElementById("clock").innerText=d.toLocaleTimeString("en-GB");
+let orderNum=1251,mails=2;
+function showSection(id,btn){
+document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
 }
+function updateClock(){document.getElementById("clock").innerText=new Date().toLocaleTimeString("en-GB")}
 setInterval(updateClock,1000);updateClock();
-
-setInterval(()=>{
-let orders=document.getElementById("orders");
-let sales=document.getElementById("sales");
-let profit=document.getElementById("profit");
-let customers=document.getElementById("customers");
-
-orders.innerText=parseInt(orders.innerText)+20;
-sales.innerText=parseInt(sales.innerText)+850;
-profit.innerText=parseInt(profit.innerText)+620;
-customers.innerText=parseInt(customers.innerText)+3;
-
-addOrder();
-},10000);
 
 function addOrder(){
 let names=["أحمد خالد","سارة علي","محمد حسن","نور عبدالله","يوسف سامي","فاطمة أحمد"];
-let states=[
-'<span class="badge pending">قيد الانتظار</span>',
-'<span class="badge processing">قيد المعالجة</span>',
-'<span class="badge shipped">تم الشحن</span>',
-'<span class="badge delivered">تم التسليم</span>'
-];
-let table=document.getElementById("ordersTable");
-let row=table.insertRow(1);
-row.innerHTML=`<td>#${orderNum++}</td><td>${names[Math.floor(Math.random()*names.length)]}</td><td>${Math.floor(Math.random()*300)+80}</td><td>${states[Math.floor(Math.random()*states.length)]}</td>`;
+let products=["سماعات لاسلكية","شاحن سريع","ساعة ذكية","كابل شحن","حافظة هاتف"];
+let states=['<span class="badge pending">Pending</span>','<span class="badge processing">Processing</span>','<span class="badge shipped">Shipped</span>','<span class="badge delivered">Delivered</span>','<span class="badge cancelled">Cancelled</span>'];
+let name=names[Math.floor(Math.random()*names.length)];
+let product=products[Math.floor(Math.random()*products.length)];
+let amount=Math.floor(Math.random()*300)+80;
+let state=states[Math.floor(Math.random()*states.length)];
+let row1=document.getElementById("ordersTable").insertRow(1);
+row1.innerHTML=`<td>#${orderNum}</td><td>${name}</td><td>${amount}</td><td>${state}</td>`;
+let row2=document.getElementById("ordersPageTable").insertRow(1);
+row2.innerHTML=`<td>#${orderNum}</td><td>${name}</td><td>${product}</td><td>${amount}</td><td>${state}</td>`;
+orderNum++;
 }
+for(let i=0;i<5;i++)addOrder();
 
 setInterval(()=>{
-let messages=[
-"سارة - العميل يسأل عن موعد التوصيل",
-"محمد - منتج جديد يحتاج إضافة للمخزون",
-"علي - يوجد طلب متأخر في الشحن",
-"هدى - هل تم تحويل الرواتب؟",
-"يوسف - المنتج رقم 120 قرب يخلص",
-"نور - تم استلام دفعة جديدة"
-];
-let li=document.createElement("li");
-li.innerText=messages[Math.floor(Math.random()*messages.length)];
+document.getElementById("orders").innerText=parseInt(document.getElementById("orders").innerText)+20;
+document.getElementById("sales").innerText=parseInt(document.getElementById("sales").innerText)+850;
+document.getElementById("profit").innerText=parseInt(document.getElementById("profit").innerText)+620;
+document.getElementById("profit2").innerText=document.getElementById("profit").innerText;
+document.getElementById("customersNum").innerText=parseInt(document.getElementById("customersNum").innerText)+3;
+addOrder();
+},10000);
+
+setInterval(()=>{
+let messages=["سارة - العميل يسأل عن موعد التوصيل","محمد - منتج جديد يحتاج إضافة للمخزون","علي - يوجد طلب متأخر في الشحن","هدى - هل تم تحويل الرواتب؟","يوسف - المنتج رقم 120 قرب يخلص","نور - تم استلام دفعة جديدة"];
+let msg=messages[Math.floor(Math.random()*messages.length)];
+let li=document.createElement("li");li.innerText=msg;
+let li2=document.createElement("li");li2.innerText=msg;
 document.getElementById("mailbox").prepend(li);
-mails++;
-document.getElementById("mailCount").innerText=mails;
+document.getElementById("mailbox2").prepend(li2);
+mails++;document.getElementById("mailCount").innerText=mails;
+let n=document.createElement("li");n.innerText="وصلت رسالة جديدة من موظف";
+document.getElementById("notifyList").prepend(n);
 },15000);
 
 function transferMoney(){
-let bank=document.getElementById("bankMoney");
-let company=document.getElementById("companyMoney");
+let bank=document.getElementById("bankMoney"), company=document.getElementById("companyMoney");
 bank.innerText=parseInt(bank.innerText)+5000;
 company.innerText=parseInt(company.innerText)-5000;
-let li=document.createElement("li");
-li.innerText="تم تحويل 5000 إلى البنك الآن";
+let li=document.createElement("li");li.innerText="تم تحويل 5000 إلى البنك الآن";
 document.getElementById("bankLog").prepend(li);
+alert("تم نقل الأموال إلى البنك");
 }
-
-function replyMail(){
-alert("تم إرسال الرد للموظف بنجاح");
+function replyMail(){alert("تم إرسال الرد للموظف بنجاح")}
+function sendReply(){
+let val=document.getElementById("replyText").value;
+if(val.trim()==""){alert("اكتب الرد أولاً");return}
+alert("تم إرسال الرد: "+val);
+document.getElementById("replyText").value="";
 }
+function logout(){alert("تم تسجيل الخروج من النظام")}
 </script>
-
 </body>
 </html>
