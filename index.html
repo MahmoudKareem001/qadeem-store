@@ -3,100 +3,220 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>قديم ستور - لوحة الموظف</title>
+<title>قديم ستور</title>
 <style>
-body{background:#0b1220;color:white;font-family:Tahoma;margin:0;padding:20px}
-h1{color:#d4af37}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;margin-top:20px}
-.card{background:#111827;padding:20px;border-radius:15px;border:1px solid #d4af37}
-.number{font-size:30px;color:#d4af37;font-weight:bold}
-button{background:#d4af37;color:black;border:none;padding:12px 20px;border-radius:10px;cursor:pointer;font-weight:bold}
-.section{margin-top:25px;background:#111827;padding:20px;border-radius:15px;border:1px solid #333}
+*{box-sizing:border-box}
+body{margin:0;background:#070c14;color:#fff;font-family:Tahoma,Arial;direction:rtl}
+.app{display:flex;min-height:100vh}
+.side{width:260px;background:#0b111c;border-left:1px solid #2b2b2b;padding:25px;position:fixed;right:0;top:0;bottom:0}
+.logo{text-align:center;color:#f0b429;font-size:32px;font-weight:bold;margin-bottom:10px}
+.sub{text-align:center;color:#ddd;margin-bottom:30px}
+.nav div{padding:14px;margin:8px 0;border-radius:12px;color:#eee}
+.nav div.active,.nav div:hover{background:linear-gradient(90deg,#8a650e,#f0b429);color:#111}
+.main{margin-right:260px;padding:25px;width:100%}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}
+.time{color:#f0b429}
+.hero{background:linear-gradient(135deg,#111827,#0b111c);border:1px solid #333;border-radius:22px;padding:25px;margin-bottom:22px}
+.hero h1{margin:0;color:white}
+.hero p{color:#ccc}
+.cards{display:grid;grid-template-columns:repeat(6,1fr);gap:15px}
+.card{background:#101826;border:1px solid #333;border-radius:18px;padding:20px;box-shadow:0 0 25px #0006}
+.card h3{font-size:14px;color:#ccc;margin:0 0 15px}
+.num{font-size:28px;color:#f0b429;font-weight:bold}
+.green{color:#3ddc68}.red{color:#ff5252}.gold{color:#f0b429}
+.grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:18px;margin-top:20px}
+.box{background:#101826;border:1px solid #333;border-radius:18px;padding:18px;min-height:260px}
+.box h2{margin-top:0;font-size:20px}
 table{width:100%;border-collapse:collapse}
-td,th{padding:10px;border-bottom:1px solid #333;text-align:center}
-li{margin:8px 0}
+th,td{padding:10px;border-bottom:1px solid #2a3344;text-align:center;font-size:14px}
+.badge{padding:5px 10px;border-radius:20px;font-size:12px}
+.pending{background:#5c4308;color:#ffd76a}
+.processing{background:#063b5c;color:#72cfff}
+.shipped{background:#3d245c;color:#d6a4ff}
+.delivered{background:#0e4d21;color:#77ff9b}
+.cancelled{background:#5c1515;color:#ff8c8c}
+.mail li,.notes li{list-style:none;background:#151f2e;margin:10px 0;padding:12px;border-radius:12px;border-right:4px solid #f0b429}
+button{width:100%;padding:14px;border:0;border-radius:14px;background:linear-gradient(90deg,#8a650e,#f0b429);color:#111;font-weight:bold;cursor:pointer}
+.bank-row{display:flex;justify-content:space-between;background:#151f2e;margin:10px 0;padding:13px;border-radius:12px}
+.chart{height:170px;background:linear-gradient(180deg,#172033,#0b111c);border-radius:15px;position:relative;overflow:hidden}
+.line{position:absolute;bottom:25px;right:20px;left:20px;height:90px;background:linear-gradient(135deg,transparent 10%,#f0b42955 40%,#f0b42922 70%);border-bottom:3px solid #f0b429;border-radius:20px}
+.footer-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:18px}
+@media(max-width:1100px){.cards{grid-template-columns:repeat(2,1fr)}.grid,.footer-grid{grid-template-columns:1fr}.side{display:none}.main{margin-right:0}}
 </style>
 </head>
-
 <body>
 
-<h1>قديم ستور - لوحة الموظف</h1>
+<div class="app">
 
-<div class="cards">
-<div class="card">عدد الطلبات اليوم <div class="number" id="orders">250</div></div>
-<div class="card">عدد المنتجات <div class="number">1245</div></div>
-<div class="card">عدد العملاء <div class="number">3480</div></div>
-<div class="card">الأرباح <div class="number" id="profit">25000</div></div>
-<div class="card">المصاريف <div class="number">8300</div></div>
-<div class="card">رصيد البنك <div class="number" id="bank">75000</div></div>
+<aside class="side">
+<div class="logo">قديم ستور</div>
+<div class="sub">لوحة الموظف</div>
+<div class="nav">
+<div class="active">الرئيسية</div>
+<div>الموظفين</div>
+<div>المنتجات</div>
+<div>الطلبات</div>
+<div>العملاء</div>
+<div>المالية</div>
+<div>البنك</div>
+<div>صندوق البريد <span class="badge cancelled" id="mailCount">2</span></div>
+<div>الإشعارات</div>
+<div style="color:#ff5252">تسجيل خروج</div>
+</div>
+</aside>
+
+<main class="main">
+
+<div class="top">
+<div>👤 أحمد الموظف</div>
+<div class="time" id="clock">00:00:00</div>
 </div>
 
-<div class="section">
-<h2>البنك</h2>
-<button onclick="transferMoney()">نقل الأموال إلى البنك</button>
+<div class="hero">
+<h1>مرحباً بك يا أحمد 👋</h1>
+<p>إليك نظرة عامة على نشاط قديم ستور اليوم</p>
 </div>
 
-<div class="section">
+<section class="cards">
+<div class="card"><h3>عدد الطلبات اليوم</h3><div class="num" id="orders">920</div><small class="green">كل 10 ثواني +20 طلب</small></div>
+<div class="card"><h3>عدد المنتجات</h3><div class="num">356</div><small class="green">+5 منتجات</small></div>
+<div class="card"><h3>عدد العملاء</h3><div class="num" id="customers">1245</div><small class="green">+18 عميل</small></div>
+<div class="card"><h3>إجمالي المبيعات</h3><div class="num" id="sales">45230</div><small class="green">+8.5%</small></div>
+<div class="card"><h3>المصاريف</h3><div class="num red" id="expenses">12450</div><small class="red">رواتب وتوصيل</small></div>
+<div class="card"><h3>الأرباح</h3><div class="num green" id="profit">32780</div><small class="green">صافي الربح</small></div>
+</section>
+
+<section class="grid">
+
+<div class="box">
+<h2>نظرة عامة على المبيعات</h2>
+<div class="chart"><div class="line"></div></div>
+<p>أعلى مبيعات اليوم: <span class="gold" id="topSale">45230</span></p>
+</div>
+
+<div class="box">
 <h2>صندوق البريد</h2>
-<ul id="mailbox">
-<li>سارة - هل تم اعتماد الطلب رقم 1250 ؟</li>
+<ul class="mail" id="mailbox">
+<li>سارة - هل تم اعتماد الطلب رقم 1250؟</li>
 <li>محمد - العميل يريد تعديل العنوان</li>
+</ul>
+<button onclick="replyMail()">الرد على آخر رسالة</button>
+</div>
+
+<div class="box">
+<h2>البنك</h2>
+<div class="bank-row"><span>رصيد الشركة</span><b id="companyMoney">75430</b></div>
+<div class="bank-row"><span>رصيد البنك</span><b class="green" id="bankMoney">120250</b></div>
+<button onclick="transferMoney()">نقل الأموال إلى البنك</button>
+<ul class="notes" id="bankLog">
+<li>تم تحويل 5000 إلى البنك</li>
 </ul>
 </div>
 
-<div class="section">
+</section>
+
+<section class="footer-grid">
+
+<div class="box">
 <h2>آخر الطلبات</h2>
-<table>
-<tr>
-<th>رقم الطلب</th>
-<th>العميل</th>
-<th>الحالة</th>
-</tr>
-<tr>
-<td>#1250</td>
-<td>أحمد خالد</td>
-<td>قيد المعالجة</td>
-</tr>
-<tr>
-<td>#1249</td>
-<td>سارة محمد</td>
-<td>تم الشحن</td>
-</tr>
+<table id="ordersTable">
+<tr><th>رقم الطلب</th><th>العميل</th><th>المبلغ</th><th>الحالة</th></tr>
+<tr><td>#1250</td><td>أحمد علي</td><td>350</td><td><span class="badge processing">قيد المعالجة</span></td></tr>
+<tr><td>#1249</td><td>سارة محمد</td><td>250</td><td><span class="badge delivered">تم التسليم</span></td></tr>
 </table>
 </div>
 
+<div class="box">
+<h2>الموظفين</h2>
+<table>
+<tr><th>الاسم</th><th>القسم</th><th>الراتب</th><th>الحالة</th></tr>
+<tr><td>سارة</td><td>المبيعات</td><td>450</td><td class="green">متصل</td></tr>
+<tr><td>محمد</td><td>المخزون</td><td>400</td><td class="green">متصل</td></tr>
+<tr><td>علي</td><td>الشحن</td><td>380</td><td class="red">غير متصل</td></tr>
+</table>
+</div>
+
+<div class="box">
+<h2>المنتجات المنخفضة</h2>
+<table>
+<tr><th>المنتج</th><th>الكمية</th><th>الحالة</th></tr>
+<tr><td>سماعات لاسلكية</td><td>5</td><td class="red">منخفض</td></tr>
+<tr><td>شاحن سريع</td><td>8</td><td class="red">منخفض</td></tr>
+<tr><td>كابل</td><td>12</td><td class="gold">قرب النفاد</td></tr>
+</table>
+</div>
+
+</section>
+
+</main>
+</div>
+
 <script>
-function transferMoney(){
-let bank=document.getElementById("bank");
-bank.innerText=parseInt(bank.innerText)+5000;
-alert("تم تحويل 5000 دينار إلى البنك");
+let orderNum=1251;
+let mails=2;
+
+function updateClock(){
+let d=new Date();
+document.getElementById("clock").innerText=d.toLocaleTimeString("en-GB");
 }
+setInterval(updateClock,1000);updateClock();
 
-setInterval(function(){
+setInterval(()=>{
 let orders=document.getElementById("orders");
-orders.innerText=parseInt(orders.innerText)+20;
-
+let sales=document.getElementById("sales");
 let profit=document.getElementById("profit");
-profit.innerText=parseInt(profit.innerText)+1000;
+let customers=document.getElementById("customers");
+
+orders.innerText=parseInt(orders.innerText)+20;
+sales.innerText=parseInt(sales.innerText)+850;
+profit.innerText=parseInt(profit.innerText)+620;
+customers.innerText=parseInt(customers.innerText)+3;
+
+addOrder();
 },10000);
 
-setInterval(function(){
-let messages=[
-"يوسف - المنتج رقم 120 قرب ينفذ",
-"سارة - تم استلام دفعة جديدة",
-"محمد - يوجد استفسار من عميل",
-"علي - طلب جديد بحاجة مراجعة",
-"هدى - هل تم تحويل الرواتب ؟",
-"أحمد - العميل يطلب خصم على الطلب",
-"خالد - في طلب متأخر لازم نراجعه",
-"نور - تم تجهيز 12 طلب للشحن"
+function addOrder(){
+let names=["أحمد خالد","سارة علي","محمد حسن","نور عبدالله","يوسف سامي","فاطمة أحمد"];
+let states=[
+'<span class="badge pending">قيد الانتظار</span>',
+'<span class="badge processing">قيد المعالجة</span>',
+'<span class="badge shipped">تم الشحن</span>',
+'<span class="badge delivered">تم التسليم</span>'
 ];
+let table=document.getElementById("ordersTable");
+let row=table.insertRow(1);
+row.innerHTML=`<td>#${orderNum++}</td><td>${names[Math.floor(Math.random()*names.length)]}</td><td>${Math.floor(Math.random()*300)+80}</td><td>${states[Math.floor(Math.random()*states.length)]}</td>`;
+}
 
-let random=messages[Math.floor(Math.random()*messages.length)];
+setInterval(()=>{
+let messages=[
+"سارة - العميل يسأل عن موعد التوصيل",
+"محمد - منتج جديد يحتاج إضافة للمخزون",
+"علي - يوجد طلب متأخر في الشحن",
+"هدى - هل تم تحويل الرواتب؟",
+"يوسف - المنتج رقم 120 قرب يخلص",
+"نور - تم استلام دفعة جديدة"
+];
 let li=document.createElement("li");
-li.innerText=random;
+li.innerText=messages[Math.floor(Math.random()*messages.length)];
 document.getElementById("mailbox").prepend(li);
+mails++;
+document.getElementById("mailCount").innerText=mails;
 },15000);
+
+function transferMoney(){
+let bank=document.getElementById("bankMoney");
+let company=document.getElementById("companyMoney");
+bank.innerText=parseInt(bank.innerText)+5000;
+company.innerText=parseInt(company.innerText)-5000;
+let li=document.createElement("li");
+li.innerText="تم تحويل 5000 إلى البنك الآن";
+document.getElementById("bankLog").prepend(li);
+}
+
+function replyMail(){
+alert("تم إرسال الرد للموظف بنجاح");
+}
 </script>
 
 </body>
